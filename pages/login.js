@@ -15,8 +15,8 @@ import { Store } from "../utils/Store";
 import Cookies from "js-cookie";
 import { Controller, useForm } from "react-hook-form";
 import { useSnackbar } from "notistack";
-import { styled } from "@mui/styles";
 import { getError } from "../utils/error";
+import { styled } from "@mui/styles";
 
 const FormLogin = styled("form")({
   width: "100%",
