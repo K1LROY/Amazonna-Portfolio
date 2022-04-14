@@ -36,9 +36,6 @@ const CardP = styled(Card)({
   marginTop: 10,
   marginBottom: 10,
 });
-const fullWidth = styled("div")({
-  width: "100%",
-});
 
 function reducer(state, action) {
   switch (action.type) {

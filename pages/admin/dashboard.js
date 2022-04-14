@@ -15,12 +15,7 @@ import {
   CardContent,
   CardActions,
 } from "@mui/material";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-} from "chart.js";
+
 import { Bar } from "react-chartjs-2";
 import { getError } from "../../utils/error";
 import { Store } from "../../utils/Store";

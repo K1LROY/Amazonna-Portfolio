@@ -13,7 +13,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import Layout from "../../components/Layout";
-import { styled } from "@mui/styles";
 import Product from "../../models/Product";
 import db from "../../utils/db";
 import axios from "axios";
@@ -22,19 +21,20 @@ import { useRouter } from "next/router";
 import Rating from "@mui/lab/Rating";
 import { getError } from "../../utils/error";
 import { useSnackbar } from "notistack";
+import { styled } from "@mui/styles";
 
 const Section = styled("div")({
   marginTop: 10,
   marginBottom: 10,
 });
 
-const reviewItem = styled(Grid)({
+const ReviewItem = styled(Grid)({
   marginRight: "1rem",
   borderRight: "1px #808080 solid",
   paddingRight: "1rem",
 });
 
-const reviewForm = styled("form")({
+const ReviewForm = styled("form")({
   maxWidth: 800,
   width: "100%",
 });
@@ -194,12 +194,12 @@ export default function ProductScreen(props) {
         {reviews.map((review) => (
           <ListItem key={review._id}>
             <Grid container>
-              <reviewForm>
+              <ReviewItem>
                 <Typography>
                   <strong>{review.name}</strong>
                 </Typography>
                 <Typography>{review.createdAt.substring(0, 10)}</Typography>
-              </reviewForm>
+              </ReviewItem>
               <Grid item>
                 <Rating value={review.rating} readOnly></Rating>
                 <Typography>{review.comment}</Typography>
@@ -209,7 +209,7 @@ export default function ProductScreen(props) {
         ))}
         <ListItem>
           {userInfo ? (
-            <reviewForm onSubmit={submitHandler}>
+            <ReviewForm onSubmit={submitHandler}>
               <List>
                 <ListItem>
                   <Typography variant="h2">Leave your review</Typography>
@@ -245,7 +245,7 @@ export default function ProductScreen(props) {
                   {loading && <CircularProgress></CircularProgress>}
                 </ListItem>
               </List>
-            </reviewForm>
+            </ReviewForm>
           ) : (
             <Typography variant="h2">
               Please{" "}
