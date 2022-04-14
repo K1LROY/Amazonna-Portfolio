@@ -19,8 +19,10 @@ import {
   ListItem,
   Divider,
   ListItemText,
+  InputBase,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material/styles";
@@ -60,13 +62,36 @@ const LoginButton = styled(Button)({
   color: "#ffffff",
   textTransform: "initial",
 });
+const MenuButton = styled(Button)({
+  padding: 0,
+});
+const NewIconButton = styled(Button)({
+  padding: 5,
+  borderRadius: "0 5px 5px 0",
+  "& span": {
+    color: "#000000",
+  },
+});
 const NavbarButton = styled(MenuIcon)({
   color: "#ffffff",
   textTransform: "initial",
 });
 const NewToolbar = styled(Toolbar)({
-  toolbar: {
-    justifyContent: "space-between",
+  justifyContent: "space-between",
+});
+const SearchForm = styled("form")({
+  border: "1px solid #ffffff",
+  backgroundColor: "#ffffff",
+  borderRadius: 5,
+});
+const SearchSection = styled("div")({
+  display: "flex",
+});
+const SearchInput = styled(InputBase)({
+  paddingLeft: 5,
+  color: "#000000",
+  "& ::placeholder": {
+    color: "#606060",
   },
 });
 
@@ -121,6 +146,16 @@ const Layout = ({ title, description, children }) => {
       enqueueSnackbar(getError(err), { variant: "error" });
     }
   };
+
+  const [query, setQuery] = useState("");
+  const queryChangeHandler = (e) => {
+    setQuery(e.target.value);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    router.push(`/search?query=${query}`);
+  };
+
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -160,13 +195,13 @@ const Layout = ({ title, description, children }) => {
         <Navbar position="static">
           <NewToolbar>
             <Box display="flex" alignItems="center">
-              <IconButton
+              <MenuButton
                 edge="start"
                 aria-label="open drawer"
                 onClick={sidebarOpenHandler}
               >
                 <NavbarButton />
-              </IconButton>
+              </MenuButton>
               <NextLink href="/" passHref>
                 <Link>
                   <Brand>amazona</Brand>
@@ -212,7 +247,18 @@ const Layout = ({ title, description, children }) => {
                 ))}
               </List>
             </Drawer>
-            <Grow />
+            <SearchSection>
+              <SearchForm onSubmit={submitHandler}>
+                <SearchInput
+                  name="query"
+                  placeholder="Search products"
+                  onChange={queryChangeHandler}
+                />
+                <NewIconButton type="submit" aria-label="search">
+                  <SearchIcon />
+                </NewIconButton>
+              </SearchForm>
+            </SearchSection>
             <div>
               <Switch
                 checked={darkMode}

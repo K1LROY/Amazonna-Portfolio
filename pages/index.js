@@ -16,7 +16,8 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { Store } from "../utils/Store";
-import Rating from "@mui/lab/Rating";
+// import Rating from "@mui/material/Rating";
+import ProductItem from "../components/ProductItem";
 
 export default function Home(props) {
   const router = useRouter();
@@ -42,31 +43,10 @@ export default function Home(props) {
         <Grid container spacing={3}>
           {products.map((product) => (
             <Grid item md={4} key={product.name}>
-              <Card>
-                <NextLink href={`/product/${product.slug}`} passHref>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      image={product.image}
-                      title={product.name}
-                    ></CardMedia>
-                    <CardContent>
-                      <Typography>{product.name}</Typography>
-                      <Rating value={product.rating} readOnly></Rating>
-                    </CardContent>
-                  </CardActionArea>
-                </NextLink>
-                <CardActions>
-                  <Typography>${product.price}</Typography>
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={() => addToCartHandler(product)}
-                  >
-                    Add to cart
-                  </Button>
-                </CardActions>
-              </Card>
+              <ProductItem
+                product={product}
+                addToCartHandler={addToCartHandler}
+              />
             </Grid>
           ))}
         </Grid>

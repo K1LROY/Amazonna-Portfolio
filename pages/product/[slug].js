@@ -18,7 +18,7 @@ import db from "../../utils/db";
 import axios from "axios";
 import { Store } from "../../utils/Store";
 import { useRouter } from "next/router";
-import Rating from "@mui/lab/Rating";
+import Rating from "@mui/material/Rating";
 import { getError } from "../../utils/error";
 import { useSnackbar } from "notistack";
 import { styled } from "@mui/styles";
