@@ -247,7 +247,6 @@ export async function getServerSideProps({ query }) {
   const rating = query.rating || "";
   const sort = query.sort || "";
   const searchQuery = query.query || "";
-
   const queryFilter =
     searchQuery && searchQuery !== "all"
       ? {
@@ -277,7 +276,6 @@ export async function getServerSideProps({ query }) {
           },
         }
       : {};
-
   const order =
     sort === "featured"
       ? { featured: -1 }
@@ -290,7 +288,6 @@ export async function getServerSideProps({ query }) {
       : sort === "newest"
       ? { createdAt: -1 }
       : { _id: -1 };
-
   const categories = await Product.find().distinct("category");
   const brands = await Product.find().distinct("brand");
   const productDocs = await Product.find(
@@ -307,7 +304,6 @@ export async function getServerSideProps({ query }) {
     .skip(pageSize * (page - 1))
     .limit(pageSize)
     .lean();
-
   const countProducts = await Product.countDocuments({
     ...queryFilter,
     ...categoryFilter,
@@ -316,9 +312,7 @@ export async function getServerSideProps({ query }) {
     ...ratingFilter,
   });
   await db.disconnect();
-
   const products = productDocs.map(db.convertDocToObj);
-
   return {
     props: {
       products,

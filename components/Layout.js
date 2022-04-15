@@ -55,9 +55,7 @@ const Footer = styled("footer")({
   textAlign: "center",
   marginTop: 10,
 });
-const Grow = styled("div")({
-  flexGrow: 1,
-});
+
 const LoginButton = styled(Button)({
   color: "#ffffff",
   textTransform: "initial",
@@ -79,11 +77,11 @@ const NavbarButton = styled(MenuIcon)({
 const NewToolbar = styled(Toolbar)({
   justifyContent: "space-between",
 });
-const SearchForm = styled("form")({
-  border: "1px solid #ffffff",
-  backgroundColor: "#ffffff",
-  borderRadius: 5,
-});
+// const SearchForm = styled("form")({
+//   border: "1px solid #ffffff",
+//   backgroundColor: "#ffffff",
+//   borderRadius: 5,
+// });
 const SearchSection = styled("div")({
   display: "flex",
 });
@@ -181,13 +179,15 @@ const Layout = ({ title, description, children }) => {
     dispatch({ type: "USER_LOGOUT" });
     Cookies.remove("userInfo");
     Cookies.remove("cartItems");
+    Cookies.remove("shippingAddress");
+    Cookies.remove("paymentMethod");
     router.push("/");
   };
 
   return (
     <div>
       <Head>
-        <title>{title ? `${title} - Next Amazona` : "Next Amazona"}</title>
+        <title>{title ? `${title} - Next Amazonna` : "Next Amazonna"}</title>
         {description && <meta name="description" content={description}></meta>}
       </Head>
       <ThemeProvider theme={theme}>
@@ -204,7 +204,7 @@ const Layout = ({ title, description, children }) => {
               </MenuButton>
               <NextLink href="/" passHref>
                 <Link>
-                  <Brand>amazona</Brand>
+                  <Brand>Amazonna</Brand>
                 </Link>
               </NextLink>
             </Box>
@@ -248,16 +248,25 @@ const Layout = ({ title, description, children }) => {
               </List>
             </Drawer>
             <SearchSection>
-              <SearchForm onSubmit={submitHandler}>
-                <SearchInput
-                  name="query"
-                  placeholder="Search products"
-                  onChange={queryChangeHandler}
-                />
-                <NewIconButton type="submit" aria-label="search">
-                  <SearchIcon />
-                </NewIconButton>
-              </SearchForm>
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  border: "1px solid #ffffff",
+                  backgroundColor: "#ffffff",
+                  borderRadius: 3,
+                }}
+              >
+                <form onSubmit={submitHandler}>
+                  <SearchInput
+                    name="query"
+                    placeholder="Search products"
+                    onChange={queryChangeHandler}
+                  />
+                  <NewIconButton type="submit" aria-label="search">
+                    <SearchIcon />
+                  </NewIconButton>
+                </form>
+              </Box>
             </SearchSection>
             <div>
               <Switch

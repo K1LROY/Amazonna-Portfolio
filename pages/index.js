@@ -11,11 +11,11 @@ import { Store } from "../utils/Store";
 import ProductItem from "../components/ProductItem";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { styled } from "@mui/styles";
+// import { styled } from "@mui/styles";
 
-const FlexLink = styled(Link)({
-  display: "flex",
-});
+// const FlexLink = styled(Link)({
+//   display: "flex",
+// });
 
 export default function Home(props) {
   const router = useRouter();
@@ -35,20 +35,20 @@ export default function Home(props) {
 
   return (
     <Layout>
-      <Carousel>
+      <Carousel showThumbs={false}>
         {featuredProducts.map((product) => (
           <NextLink
             key={product._id}
             href={`/product/${product.slug}`}
             passHref
           >
-            <FlexLink>
+            <Link sx={{ display: { xs: "none", md: "flex" } }}>
               <img src={product.featuredImage} alt={product.name}></img>
-            </FlexLink>
+            </Link>
           </NextLink>
         ))}
       </Carousel>
-      <Typography variant="h2">Popular Products 1</Typography>
+      <Typography variant="h2">Popular Products</Typography>
       <Grid container spacing={3}>
         {topRatedProducts.map((product) => (
           <Grid item md={4} key={product.name}>
